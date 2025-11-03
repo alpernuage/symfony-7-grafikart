@@ -7,6 +7,7 @@ use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -51,6 +52,12 @@ final class RecipeController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+//            This part is managed by Vich uploader
+//            /** @var UploadedFile $file */
+//            $file = $form->get('thumbnailFile')->getData();
+//            $filename = $recipe->getId() . '.' . $file->getClientOriginalExtension();
+//            $file->move($this->getParameter('kernel.project_dir') . '/public/images/recipes', $filename);
+//            $recipe->setThumbnail($filename);
             $em->flush();
             $this->addFlash('success', 'La recette a bien été modifiée');
 
