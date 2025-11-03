@@ -23,14 +23,10 @@ final class RecipeController extends AbstractController
     {
 //        $recipes = $repository->findWithDurationLowerThan(20);
         $page = $request->query->getInt('page', 1);
-        $limit = 2;
-        $recipes = $repository->paginateRecipes($page, $limit);
-        $maxPage = ceil($recipes->count() / $limit);
+        $recipes = $repository->paginateRecipes($page);
 
         return $this->render('admin/recipe/index.html.twig', [
-            'recipes' => $recipes,
-            'maxPage' => $maxPage,
-            'page' => $page
+            'recipes' => $recipes
         ]);
     }
 
