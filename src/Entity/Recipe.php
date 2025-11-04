@@ -55,6 +55,9 @@ class Recipe
     #[Assert\Image()]
     private ?File $thumbnailFile = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Recipe
     public function setThumbnailFile(?File $thumbnailFile): static
     {
         $this->thumbnailFile = $thumbnailFile;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }
