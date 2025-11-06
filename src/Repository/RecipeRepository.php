@@ -18,7 +18,7 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
-    public function paginateRecipes(int $page): PaginationInterface
+    public function paginateRecipes(int $page, ?int $userId): PaginationInterface
     {
 //        return new Paginator($this
 //            ->createQueryBuilder('r')
@@ -28,8 +28,15 @@ class RecipeRepository extends ServiceEntityRepository
 //            ->setHint(Paginator::HINT_ENABLE_DISTINCT, false),
 //            fetchJoinCollection: false,
 //        );
+
+        $builder = $this->createQueryBuilder('r')->leftJoin('r.category', 'c')->addSelect('r', 'c');
+
+        if ($userId) {
+            $builder->andWhere('r.owner = :userId')->setParameter('userId', $userId);
+        }
+
         return $this->paginator->paginate(
-            $this->createQueryBuilder('r')->leftJoin('r.category', 'c')->addSelect('r', 'c'),
+            $builder,
             $page,
             20,
             [
