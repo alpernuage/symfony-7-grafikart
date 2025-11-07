@@ -49,7 +49,7 @@ class RecipeType extends AbstractType
                 'by_reference' => false,
                 'entry_options' => ['label' => false],
                 'attr' => [
-                    'data-controller' => 'form-collection',
+//                    'data-controller' => 'form-collection',
                     'data-form-collection-add-label-value' => 'Ajouter un ingredient',
                     'data-form-collection-delete-label-value' => 'Supprimer un ingredient',
                 ]
