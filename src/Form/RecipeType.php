@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Recipe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Image;
 
 class RecipeType extends AbstractType
 {
@@ -30,7 +30,9 @@ class RecipeType extends AbstractType
             ->add('slug', TextType::class, [
                 'required' => false,
             ])
-            ->add('thumbnailFile', FileType::class)
+            ->add('thumbnailFile', FileType::class, [
+                'required' => false,
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
@@ -40,6 +42,18 @@ class RecipeType extends AbstractType
                 'empty_data' => ''
             ])
             ->add('duration')
+            ->add('quantities', CollectionType::class, [
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => QuantityType::class,
+                'by_reference' => false,
+                'entry_options' => ['label' => false],
+                'attr' => [
+                    'data-controller' => 'form-collection',
+                    'data-form-collection-add-label-value' => 'Ajouter un ingredient',
+                    'data-form-collection-delete-label-value' => 'Supprimer un ingredient',
+                ]
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer'
             ])
