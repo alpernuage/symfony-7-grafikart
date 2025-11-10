@@ -4,4 +4,9 @@
 
 {% block body %}
     Home
+    {% trans %}Welcome{% endtrans %}
+    {{ 'welcome' | trans({'%name%': 'John'}) }}
+    <p>
+        {{ "home_recipe_count" | trans({count: 100}) }}
+    </p>
 {% endblock %}

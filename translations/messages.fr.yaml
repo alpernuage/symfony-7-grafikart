@@ -1,0 +1,7 @@
+Name: Prénom
+contactForm.name: Prénom
+contactForm.email: Courriel
+contactForm.service: Service
+contactForm.message: Message
+contactForm.submit: "Envoyer l'email"
+welcome: Bonjour %name%

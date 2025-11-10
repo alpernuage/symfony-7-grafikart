@@ -18,15 +18,19 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'label' => t('contactForm.name')
             ])
             ->add('email', EmailType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'label' => t('contactForm.email')
             ])
             ->add('message', TextareaType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'label' => t('contactForm.message')
             ])
             ->add('service', ChoiceType::class, [
+                'label' => t('contactForm.submit'),
                 'choices' => [
                     'Comptabilité' => 'compta@demo.fr',
                     'Support Technique' => 'support@demo.fr',
